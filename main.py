@@ -8,26 +8,37 @@ def main(path):
     # read csv
     data = pd.read_csv(path)
     # get values
-    y_values = data["Peso"]
-    x_values = data["Data"]
+    y_values = data["Peso"].values
+    x_values = data["Data"].values
     print(data)
-    fig, ax = plt.subplots()
+
+    fig, axes = plt.subplots(2, 1)
+
     # set title and labels
-    ax.set_title("Peso x Tempo")
-    ax.set_xlabel("Dias")
-    ax.set_ylabel("Peso")
-    def t(x, pos):
-        print(x)
-        print(pos)
-        return x + pos
+    axes[0].set_ylabel("Peso")
+    # function to format labels
+    fmt = lambda x, pos: "{}kg".format( round(x, 1) )
+    # ticks
+    #axes[0].yaxis.set_major_formatter(FuncFormatter(fmt))
+    # set y label
+    axes[0].set_ylim(min(y_values)*0.99, max(y_values)*1.01)
+    # plot values
+    axes[0].plot(x_values, y_values)
+
+    # set title and labels
+    axes[1].set_xlabel("Dias")
+    axes[1].set_ylabel("Variação")
     # function to format labels
     fmt = lambda x, pos: "{}kg".format( x )
     # ticks
-    ax.yaxis.set_major_formatter(FuncFormatter(fmt))
+    #axes[1].yaxis.set_major_formatter(FuncFormatter(fmt))
     # set y label
-    ax.set_ylim(min(y_values)*0.99, max(y_values)*1.01)
+    #axes[1].set_ylim(min(y_values)*0.99, max(y_values)*1.01)
+    #variation = y_values[1:] - y_values[:-1]
+    #print(variation)
     # plot values
-    ax.plot(x_values, y_values)
+    axes[1].plot(x_values[1:], y_values[1:] - y_values[:-1])
+
     # show plot
     plt.show()
 
