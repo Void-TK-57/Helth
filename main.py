@@ -30,15 +30,11 @@ def main(path):
     axes[1].set_ylabel("Variação")
     # function to format labels
     fmt = lambda x, pos: "{}kg".format( x )
-    # ticks
-    #axes[1].yaxis.set_major_formatter(FuncFormatter(fmt))
-    # set y label
-    #axes[1].set_ylim(min(y_values)*0.99, max(y_values)*1.01)
-    #variation = y_values[1:] - y_values[:-1]
-    #print(variation)
-    # plot values
-    axes[1].plot(x_values[1:], y_values[1:] - y_values[:-1])
-
+    
+    axes[1].plot(x_values[1:], y_values[1:] - y_values[:-1], linestyle="dashed", color='green')
+    axes[1].plot( [np.min(x_values[1:]), np.max(x_values[2:])], [0, 0], color='red')
+    
+    
     # show plot
     plt.show()
 
